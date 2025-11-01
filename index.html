@@ -52,6 +52,30 @@
 
 // じゃんけんゲームの JavaScript を記述してください！
 
+$(function () {
+    const hands = ['グー', 'チョキ', 'パー'];
+    const handIcons = ['✊', '✌️', '✋'];
+
+    $('.choice-btn').on('click', function () {
+        const playerHand = $(this).attr('id');
+        const playerIndex = hands.indexOf(playerHand === 'gu' ? 'グー' : playerHand === 'choki' ? 'チョキ' : 'パー');
+        const pcIndex = Math.floor(Math.random() * 3);
+
+        $('#pc-hand').text(`${handIcons[pcIndex]} ${hands[pcIndex]}`);
+
+        const result = judge(playerIndex, pcIndex);
+        $('#result').text(result).removeClass().addClass('result');
+    });
+
+    function judge(player, pc) {
+        if (player === pc) return 'あいこ';
+        if ((player === 0 && pc === 1) || (player === 1 && pc === 2) || (player === 2 && pc === 0)) {
+            return '勝ち';
+        } else {
+            return '負け';
+        }
+    }
+});
 
 </script>
 </body>
